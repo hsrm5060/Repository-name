@@ -4,7 +4,7 @@ import { ownershipAPI } from '../../services/api';
 // Async actions
 export const fetchOwnershipVehicles = createAsyncThunk('ownership/fetchAll', async () => {
   const response = await ownershipAPI.getAll();
-  return response.data;
+  return Array.isArray(response.data) ? response.data : (response.data?.data || []);
 });
 
 export const createOwnershipVehicle = createAsyncThunk('ownership/create', async (vehicleData) => {

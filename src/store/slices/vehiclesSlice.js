@@ -4,7 +4,8 @@ import { vehiclesAPI } from '../../services/api';
 // Async actions
 export const fetchVehicles = createAsyncThunk('vehicles/fetchAll', async () => {
   const response = await vehiclesAPI.getAll();
-  return response.data;
+  // دعم كلا الصيغتين: array مباشر أو object مع data
+  return Array.isArray(response.data) ? response.data : (response.data.data || []);
 });
 
 export const createVehicle = createAsyncThunk('vehicles/create', async (vehicleData) => {

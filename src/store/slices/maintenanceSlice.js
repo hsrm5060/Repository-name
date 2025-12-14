@@ -4,7 +4,7 @@ import { maintenanceAPI } from '../../services/api';
 // Async actions
 export const fetchMaintenance = createAsyncThunk('maintenance/fetchAll', async () => {
   const response = await maintenanceAPI.getAll();
-  return response.data;
+  return Array.isArray(response.data) ? response.data : (response.data?.data || []);
 });
 
 export const fetchMaintenanceByVehicle = createAsyncThunk('maintenance/fetchByVehicle', async (vehicleId) => {

@@ -4,7 +4,7 @@ import api from '../../services/api';
 // Async actions
 export const fetchLicenses = createAsyncThunk('licenses/fetchAll', async (type = 'all') => {
   const response = await api.get(`/licenses?type=${type}`);
-  return response.data;
+  return Array.isArray(response.data) ? response.data : (response.data?.data || []);
 });
 
 export const fetchLicenseById = createAsyncThunk('licenses/fetchById', async ({ id, category }) => {

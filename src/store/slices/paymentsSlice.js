@@ -4,7 +4,7 @@ import { paymentsAPI } from '../../services/api';
 // Async actions
 export const fetchPayments = createAsyncThunk('payments/fetchAll', async () => {
   const response = await paymentsAPI.getAll();
-  return response.data;
+  return Array.isArray(response.data) ? response.data : (response.data?.data || []);
 });
 
 export const fetchPaymentStats = createAsyncThunk('payments/fetchStats', async () => {

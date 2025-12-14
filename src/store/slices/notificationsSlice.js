@@ -4,7 +4,7 @@ import { notificationsAPI } from '../../services/api';
 // Async actions
 export const fetchNotifications = createAsyncThunk('notifications/fetchAll', async () => {
   const response = await notificationsAPI.getAll();
-  return response.data;
+  return Array.isArray(response.data) ? response.data : (response.data?.data || []);
 });
 
 export const markNotificationAsRead = createAsyncThunk('notifications/markAsRead', async (id) => {

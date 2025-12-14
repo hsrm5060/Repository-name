@@ -4,7 +4,7 @@ import api from '../../services/api';
 // Async actions
 export const fetchInsurances = createAsyncThunk('insurance/fetchAll', async () => {
   const response = await api.get('/insurance');
-  return response.data;
+  return Array.isArray(response.data) ? response.data : (response.data?.data || []);
 });
 
 export const fetchInsuranceById = createAsyncThunk('insurance/fetchById', async (id) => {

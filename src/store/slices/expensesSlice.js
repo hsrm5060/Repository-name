@@ -4,7 +4,7 @@ import { expensesAPI } from '../../services/api';
 // Async actions
 export const fetchExpenses = createAsyncThunk('expenses/fetchAll', async () => {
   const response = await expensesAPI.getAll();
-  return response.data;
+  return Array.isArray(response.data) ? response.data : (response.data?.data || []);
 });
 
 export const createExpense = createAsyncThunk('expenses/create', async (expenseData) => {
